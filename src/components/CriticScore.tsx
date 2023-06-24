@@ -14,7 +14,7 @@ export default function CriticScore(props: Props) {
     <Badge
       fontSize={"sm"}
       paddingX={2}
-      borderRadius={6}
+      borderRadius={4}
       colorScheme={badgeColor}
     >
       {props.score}

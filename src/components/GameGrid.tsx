@@ -8,7 +8,6 @@ export default function GameGrid() {
   const { error, setError } = gameHookObj;
 
   const gameCards = games.map((game) => <GameCard key={game.id} game={game} />);
-
   return (
     <>
       {error && <Text>{error}</Text>}

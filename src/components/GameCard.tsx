@@ -20,7 +20,7 @@ export default function GameCard(props: Props) {
     ({ platform }) => platform
   );
   return (
-    <Card width={"300px"} borderRadius={12} overflow={"hidden"}>
+    <Card>
       <Image src={getCroppedImageURL(props.game.background_image)} />
       <CardHeader paddingY={0} paddingTop={3}>
         <Heading fontSize={"2xl"}>{props.game.name}</Heading>

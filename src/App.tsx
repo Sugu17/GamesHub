@@ -10,16 +10,20 @@ export default function App() {
         base: `"nav" "main"`,
         md: `"nav nav" "aside main"`,
       }}
+      templateColumns={{
+        base: "1fr",
+        md: "180px 1fr",
+      }}
     >
       <GridItem area={"nav"}>
         <NavBar></NavBar>
       </GridItem>
       <Show above="md">
-        <GridItem area={"aside"}>
+        <GridItem area={"aside"} paddingX={4}>
           <GenreList />
         </GridItem>
       </Show>
-      <GridItem area={"main"}>
+      <GridItem area={"main"} paddingY={2} paddingX={4}>
         <GameGrid />
       </GridItem>
     </Grid>

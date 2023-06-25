@@ -3,7 +3,7 @@ import { HStack, Switch, Text, useColorMode } from "@chakra-ui/react";
 export default function ColorModeSwitch() {
   const { toggleColorMode, colorMode } = useColorMode();
   return (
-    <HStack>
+    <HStack whiteSpace={"nowrap"}>
       <Text
         fontWeight={colorMode === "light" ? "bold" : "normal"}
         textTransform={"capitalize"}

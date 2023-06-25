@@ -20,7 +20,8 @@ export default function GameGrid() {
   return (
     <>
       {gameError && <Text>{gameError}</Text>}
-      <SimpleGrid columns={{ sm: 1, lg: 3 }} spacing={"10"} padding={"6"}>
+
+      <SimpleGrid columns={{ sm: 1, lg: 3 }} spacing={"10"}>
         {gameIsLoading &&
           skeletons.map((index) => (
             <GameCardContainer key={index}>

@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import { CanceledError } from "axios";
-import apiClient from "../services/api-client";
+import useData from "./useData";
 
 export interface Platform {
   id: number;
@@ -17,40 +15,20 @@ export interface Game {
   metacritic: number;
 }
 
-interface GamesResponse {
-  gameCount: number;
-  results: Game[];
+interface GameHook {
+  games: Game[];
+  setGames?: () => void;
+  gameError: string;
+  setGameError?: () => void;
+  gameIsLoading: boolean;
 }
 
 export default function useGame() {
-  const [games, setGames] = useState<Game[]>([]);
-  const [error, setError] = useState("");
-  const [isLoading, setLoading] = useState(false);
-
-  useEffect(() => {
-    console.log("Effect callback called!");
-    console.log("Loading...");
-    const controller = new AbortController();
-    setLoading(true);
-    apiClient
-      .get<GamesResponse>("/games", { signal: controller.signal })
-      .then((response) => setGames(response.data.results))
-      .then(() => setLoading(false))
-      .catch((error) => {
-        if (error instanceof CanceledError) return;
-        setError(error.message);
-        setLoading(false);
-      });
-
-    // Cleanup
-    return () => controller.abort();
-  }, []);
-
-  return {
-    games: games,
-    setGames: setGames,
-    error: error,
-    setError: setError,
-    isLoading: isLoading,
+  const dataHookObj = useData<Game>("/games");
+  const response: GameHook = {
+    games: dataHookObj.data,
+    gameError: dataHookObj.error,
+    gameIsLoading: dataHookObj.isLoading,
   };
+  return response;
 }

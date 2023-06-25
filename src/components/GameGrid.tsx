@@ -7,8 +7,8 @@ import GameCardContainer from "./GameCardContainer";
 export default function GameGrid() {
   const gameHookObj = useGame();
   const { games } = gameHookObj;
-  const { error } = gameHookObj;
-  const { isLoading } = gameHookObj;
+  const { gameError } = gameHookObj;
+  const { gameIsLoading } = gameHookObj;
 
   const gameCards = games.map((game) => (
     <GameCardContainer key={game.id}>
@@ -19,9 +19,9 @@ export default function GameGrid() {
 
   return (
     <>
-      {error && <Text>{error}</Text>}
+      {gameError && <Text>{gameError}</Text>}
       <SimpleGrid columns={{ sm: 1, lg: 3 }} spacing={"10"} padding={"6"}>
-        {isLoading &&
+        {gameIsLoading &&
           skeletons.map((index) => (
             <GameCardContainer key={index}>
               <GameCardSkeleton />

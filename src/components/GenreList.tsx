@@ -3,7 +3,7 @@ import useGenre from "../hooks/useGenres";
 
 export default function GenreList() {
   const genreHookObj = useGenre();
-  const { genres, setGenres } = genreHookObj;
+  const { genres } = genreHookObj;
   return (
     <UnorderedList listStyleType={"none"}>
       {genres.map((genre) => (

@@ -2,11 +2,9 @@ import {
   Card,
   CardBody,
   CardHeader,
-  Flex,
   HStack,
   Heading,
   Image,
-  Text,
 } from "@chakra-ui/react";
 import { Game } from "../hooks/useGames";
 import PlatformIconList from "./PlatformIconList";
@@ -22,7 +20,7 @@ export default function GameCard(props: Props) {
     ({ platform }) => platform
   );
   return (
-    <Card borderRadius={12} overflow={"hidden"}>
+    <Card width={"300px"} borderRadius={12} overflow={"hidden"}>
       <Image src={getCroppedImageURL(props.game.background_image)} />
       <CardHeader paddingY={0} paddingTop={3}>
         <Heading fontSize={"2xl"}>{props.game.name}</Heading>

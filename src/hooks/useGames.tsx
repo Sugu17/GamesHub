@@ -23,8 +23,12 @@ interface GameHook {
   gameIsLoading: boolean;
 }
 
-export default function useGame() {
-  const dataHookObj = useData<Game>("/games");
+export default function useGame(selectedGenre: number | null) {
+  const dataHookObj = useData<Game>("/games", [selectedGenre], {
+    params: {
+      genres: selectedGenre,
+    },
+  });
   const response: GameHook = {
     games: dataHookObj.data,
     gameError: dataHookObj.error,

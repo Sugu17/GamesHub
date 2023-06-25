@@ -1,11 +1,15 @@
-import { ListItem, SimpleGrid, Text, UnorderedList } from "@chakra-ui/react";
+import { SimpleGrid, Text } from "@chakra-ui/react";
 import useGame from "../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 import GameCardContainer from "./GameCardContainer";
 
-export default function GameGrid() {
-  const gameHookObj = useGame();
+interface Props {
+  selectedGenre: number | null;
+}
+
+export default function GameGrid(props: Props) {
+  const gameHookObj = useGame(props.selectedGenre);
   const { games } = gameHookObj;
   const { gameError } = gameHookObj;
   const { gameIsLoading } = gameHookObj;

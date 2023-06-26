@@ -1,4 +1,4 @@
-import useData from "./useData";
+import genres from "../data/genres";
 
 export interface Genre {
   id: number;
@@ -16,11 +16,11 @@ interface GenreHook {
 }
 
 export default function useGenre() {
-  const dataHookObj = useData<Genre>("/genres");
+  // const dataHookObj = useData<Genre>("/genres");
   const response: GenreHook = {
-    genres: dataHookObj.data,
-    genreError: dataHookObj.error,
-    genreIsLoading: dataHookObj.isLoading,
+    genres: genres,
+    genreError: "",
+    genreIsLoading: false,
   };
   return response;
 }

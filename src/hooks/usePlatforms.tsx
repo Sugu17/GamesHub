@@ -1,4 +1,4 @@
-import useData from "./useData";
+import platforms from "../data/platforms";
 
 interface Platform {
   id: number;
@@ -12,10 +12,10 @@ interface PlatformHook {
 }
 
 export default function usePlatforms() {
-  const dataHookObj = useData<Platform>("/platforms/lists/parents");
+  // const dataHookObj = useData<Platform>("/platforms/lists/parents");
   const response: PlatformHook = {
-    platforms: dataHookObj.data,
-    platformError: dataHookObj.error,
+    platforms: platforms,
+    platformError: "",
   };
   return response;
 }

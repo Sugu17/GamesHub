@@ -10,7 +10,7 @@ interface DataResponse<T> {
 
 export default function useData<T>(
   dataEndpoint: string,
-  deps: GameQuery,
+  deps?: GameQuery,
   requestConfig?: AxiosRequestConfig
 ) {
   const [data, setData] = useState<T[]>([]);

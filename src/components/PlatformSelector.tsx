@@ -18,7 +18,7 @@ export default function PlatformSelector(props: Props) {
   const { platforms, platformError } = usePlatforms();
   if (platformError) return null;
   return (
-    <Box paddingBottom={6}>
+    <Box display={"inline-flex"}>
       <Menu>
         <MenuButton as={Button} rightIcon={<BsChevronDown />}>
           {platforms.find((platform) => platform.id === props.selectedPlatform)

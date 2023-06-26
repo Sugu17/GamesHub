@@ -27,6 +27,7 @@ export default function SearchInput(props: Props) {
           borderRadius={30}
           variant={"filled"}
           ref={searchButtonRef}
+          name="inputSearch"
         />
       </InputGroup>
     </form>

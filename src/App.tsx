@@ -1,28 +1,32 @@
+import { useState } from "react";
 import { Grid, GridItem, HStack, Show } from "@chakra-ui/react";
+import { Platform } from "./hooks/useGames";
+import { Genre } from "./hooks/useGenres";
+import GameHeading from "./components/GameHeading";
 import NavBar from "./components/NavBar";
 import GameGrid from "./components/GameGrid";
 import GenreList from "./components/GenreList";
-import { useState } from "react";
 import PlatformSelector from "./components/PlatformSelector";
-import GameHeading from "./components/GameHeading";
+
+export interface GameQuery {
+  genre: Genre | null;
+  platform: Platform | null;
+  searchText: string | null;
+}
 
 export default function App() {
-  const [selectedGenre, setSelectedGenre] = useState<number | null>(null);
-  const [selectedPlatform, setSelectedPlatform] = useState<number | null>(null);
-  const [searchText, setSearchText] = useState<string | null>(null);
+  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
 
-  function handleSelectGenre(genreId: number) {
-    console.log(`${genreId} selected!`);
-    setSelectedGenre(genreId);
+  function handleSelectGenre(genre: Genre) {
+    setGameQuery({ ...gameQuery, genre });
   }
 
-  function handlePlatformChange(platformid: number | null) {
-    console.log(`${platformid} selected!`);
-    setSelectedPlatform(platformid);
+  function handlePlatformChange(platform: Platform | null) {
+    setGameQuery({ ...gameQuery, platform });
   }
 
   function handleSearchInput(searchText: string | null) {
-    setSearchText(searchText);
+    setGameQuery({ ...gameQuery, searchText });
   }
 
   return (
@@ -58,7 +62,7 @@ export default function App() {
         >
           <GenreList
             onSelectGenre={handleSelectGenre}
-            selectedGenre={selectedGenre}
+            selectedGenre={gameQuery.genre}
           />
         </GridItem>
       </Show>
@@ -69,17 +73,16 @@ export default function App() {
           spacing={10}
           paddingBottom={6}
         >
-          <GameHeading />
+          <GameHeading
+            platformQuery={gameQuery.platform?.name}
+            genreQuery={gameQuery.genre?.name}
+          />
           <PlatformSelector
             onSelectedPlatform={handlePlatformChange}
-            selectedPlatform={selectedPlatform}
+            selectedPlatform={gameQuery.platform}
           />
         </HStack>
-        <GameGrid
-          selectedGenre={selectedGenre}
-          selectedPlatform={selectedPlatform}
-          searchInputText={searchText}
-        />
+        <GameGrid gameQuery={gameQuery} />
       </GridItem>
     </Grid>
   );

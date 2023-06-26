@@ -14,6 +14,7 @@ export default function ColorModeSwitch() {
         colorScheme="blue"
         isChecked={colorMode === "dark"}
         onChange={toggleColorMode}
+        name="colorToggler"
       />
       <Text
         fontWeight={colorMode === "dark" ? "bold" : "normal"}

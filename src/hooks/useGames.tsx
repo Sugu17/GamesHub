@@ -1,3 +1,4 @@
+import { GameQuery } from "../App";
 import useData from "./useData";
 
 export interface Platform {
@@ -23,22 +24,14 @@ interface GameHook {
   gameIsLoading: boolean;
 }
 
-export default function useGame(
-  selectedGenre?: number | null,
-  selectedPlatform?: number | null,
-  searchInputText?: string | null
-) {
-  const dataHookObj = useData<Game>(
-    "/games",
-    [selectedGenre, selectedPlatform, searchInputText],
-    {
-      params: {
-        genres: selectedGenre,
-        platforms: selectedPlatform,
-        search: searchInputText,
-      },
-    }
-  );
+export default function useGame(gameQuery: GameQuery) {
+  const dataHookObj = useData<Game>("/games", gameQuery, {
+    params: {
+      genres: gameQuery.genre,
+      platforms: gameQuery.platform,
+      search: gameQuery.searchText,
+    },
+  });
   const response: GameHook = {
     games: dataHookObj.data,
     gameError: dataHookObj.error,

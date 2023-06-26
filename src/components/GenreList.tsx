@@ -6,13 +6,14 @@ import {
   Button,
   Heading,
 } from "@chakra-ui/react";
-import useGenre from "../hooks/useGenres";
+
+import useGenre, { Genre } from "../hooks/useGenres";
 import getCroppedImageURL from "../services/image-url";
 import GenreSkeleton from "./GenreSkeleton";
 
 interface Props {
-  onSelectGenre: (genreId: number) => void;
-  selectedGenre: number | null;
+  onSelectGenre: (genre: Genre) => void;
+  selectedGenre: Genre | null;
 }
 
 export default function GenreList(props: Props) {
@@ -36,11 +37,13 @@ export default function GenreList(props: Props) {
                 src={getCroppedImageURL(genre.image_background)}
               />
               <Button
-                onClick={() => props.onSelectGenre(genre.id)}
-                variant={props.selectedGenre === genre.id ? "solid" : "ghost"}
+                onClick={() => props.onSelectGenre(genre)}
+                variant={
+                  props.selectedGenre?.id === genre.id ? "solid" : "ghost"
+                }
                 fontSize={"lg"}
                 fontWeight={
-                  props.selectedGenre === genre.id ? "bold" : "normal"
+                  props.selectedGenre?.id === genre.id ? "bold" : "normal"
                 }
                 paddingX={2}
               >

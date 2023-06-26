@@ -3,19 +3,14 @@ import useGame from "../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 import GameCardContainer from "./GameCardContainer";
+import { GameQuery } from "../App";
 
 interface Props {
-  selectedGenre: number | null;
-  selectedPlatform: number | null;
-  searchInputText: string | null;
+  gameQuery: GameQuery;
 }
 
 export default function GameGrid(props: Props) {
-  const gameHookObj = useGame(
-    props.selectedGenre,
-    props.selectedPlatform,
-    props.searchInputText
-  );
+  const gameHookObj = useGame(props.gameQuery);
   const { games } = gameHookObj;
   const { gameError } = gameHookObj;
   const { gameIsLoading } = gameHookObj;

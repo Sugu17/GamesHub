@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
 import { AxiosRequestConfig, CanceledError } from "axios";
+import { GameQuery } from "../App";
 
 interface DataResponse<T> {
   count: number;
@@ -9,7 +10,7 @@ interface DataResponse<T> {
 
 export default function useData<T>(
   dataEndpoint: string,
-  deps: any[] = [],
+  deps: GameQuery,
   requestConfig?: AxiosRequestConfig
 ) {
   const [data, setData] = useState<T[]>([]);
@@ -17,8 +18,6 @@ export default function useData<T>(
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log("Effect callback called!");
-    console.log("Loading...");
     const controller = new AbortController();
     setLoading(true);
     apiClient
@@ -36,7 +35,7 @@ export default function useData<T>(
 
     // Cleanup
     return () => controller.abort();
-  }, deps);
+  }, [deps]);
 
   return {
     data,

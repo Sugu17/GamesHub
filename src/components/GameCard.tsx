@@ -29,7 +29,7 @@ export default function GameCard(props: Props) {
         </HStack>
       </CardBody>
       <CardHeader paddingY={0}>
-        <Heading fontSize={"2xl"} paddingBottom={6}>
+        <Heading fontSize={"2xl"} paddingBottom={5}>
           {props.game.name}
         </Heading>
       </CardHeader>

@@ -7,10 +7,16 @@ import PlatformSelector from "./components/PlatformSelector";
 
 export default function App() {
   const [selectedGenre, setSelectedGenre] = useState<number | null>(null);
+  const [selectedPlatform, setSelectedPlatform] = useState<number | null>(null);
 
   function handleSelectGenre(genreId: number) {
     console.log(`${genreId} selected!`);
     setSelectedGenre(genreId);
+  }
+
+  function handlePlatformChange(platformid: number | null) {
+    console.log(`${platformid} selected!`);
+    setSelectedPlatform(platformid);
   }
 
   return (
@@ -51,8 +57,14 @@ export default function App() {
         </GridItem>
       </Show>
       <GridItem area={"main"} paddingY={3} paddingX={4} mt={16}>
-        <PlatformSelector />
-        <GameGrid selectedGenre={selectedGenre} />
+        <PlatformSelector
+          onSelectedPlatform={handlePlatformChange}
+          selectedPlatform={selectedPlatform}
+        />
+        <GameGrid
+          selectedGenre={selectedGenre}
+          selectedPlatform={selectedPlatform}
+        />
       </GridItem>
     </Grid>
   );

@@ -11,7 +11,7 @@ export default function ColorModeSwitch() {
         Light Mode
       </Text>
       <Switch
-        colorScheme="teal"
+        colorScheme="blue"
         isChecked={colorMode === "dark"}
         onChange={toggleColorMode}
       />

@@ -1,11 +1,10 @@
-import { HStack, Image } from "@chakra-ui/react";
+import { HStack, Icon } from "@chakra-ui/react";
 import ColorModeSwitch from "./ColorModeSwitch";
-import logoIcon from "../assets/gamepad-solid.svg";
-
+import { FaGamepad } from "react-icons/fa";
 export default function NavBar() {
   return (
     <HStack paddingX={4} paddingY={2} justify={"space-between"}>
-      <Image src={logoIcon} boxSize={"48px"}></Image>
+      <Icon as={FaGamepad} boxSize={10} color={"blue.300"} />
       <ColorModeSwitch />
     </HStack>
   );

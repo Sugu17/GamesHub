@@ -1,6 +1,7 @@
 import {
   Card,
   CardBody,
+  CardFooter,
   CardHeader,
   HStack,
   Heading,
@@ -10,6 +11,7 @@ import { Game } from "../hooks/useGames";
 import PlatformIconList from "./PlatformIconList";
 import CriticScore from "./CriticScore";
 import getCroppedImageURL from "../services/image-url";
+import RatingBar from "./RatingBar";
 
 interface Props {
   game: Game;
@@ -29,10 +31,13 @@ export default function GameCard(props: Props) {
         </HStack>
       </CardBody>
       <CardHeader paddingY={0}>
-        <Heading fontSize={"2xl"} paddingBottom={5}>
+        <Heading fontSize={"2xl"} paddingBottom={3}>
           {props.game.name}
         </Heading>
       </CardHeader>
+      <CardFooter paddingY={0} paddingBottom={4}>
+        <RatingBar rating={Math.floor(props.game.rating)} />
+      </CardFooter>
     </Card>
   );
 }

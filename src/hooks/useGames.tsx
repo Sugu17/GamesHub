@@ -30,6 +30,7 @@ export default function useGame(gameQuery: GameQuery) {
       genres: gameQuery.genre,
       platforms: gameQuery.platform,
       search: gameQuery.searchText,
+      ordering: gameQuery.sortOrder,
     },
   });
   const response: GameHook = {

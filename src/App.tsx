@@ -7,11 +7,13 @@ import NavBar from "./components/NavBar";
 import GameGrid from "./components/GameGrid";
 import GenreList from "./components/GenreList";
 import PlatformSelector from "./components/PlatformSelector";
+import SortSelector from "./components/SortSelector";
 
 export interface GameQuery {
   genre: Genre | null;
   platform: Platform | null;
   searchText: string | null;
+  sortOrder: string | null;
 }
 
 export default function App() {
@@ -27,6 +29,10 @@ export default function App() {
 
   function handleSearchInput(searchText: string | null) {
     setGameQuery({ ...gameQuery, searchText });
+  }
+
+  function handleSortOrderChange(sortOrder: string) {
+    setGameQuery({ ...gameQuery, sortOrder });
   }
 
   return (
@@ -80,6 +86,10 @@ export default function App() {
           <PlatformSelector
             onSelectedPlatform={handlePlatformChange}
             selectedPlatform={gameQuery.platform}
+          />
+          <SortSelector
+            onSelectSortOrder={handleSortOrderChange}
+            currentOrder={gameQuery.sortOrder}
           />
         </HStack>
         <GameGrid gameQuery={gameQuery} />

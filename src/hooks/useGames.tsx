@@ -25,15 +25,17 @@ interface GameHook {
 
 export default function useGame(
   selectedGenre?: number | null,
-  selectedPlatform?: number | null
+  selectedPlatform?: number | null,
+  searchInputText?: string | null
 ) {
   const dataHookObj = useData<Game>(
     "/games",
-    [selectedGenre, selectedPlatform],
+    [selectedGenre, selectedPlatform, searchInputText],
     {
       params: {
         genres: selectedGenre,
         platforms: selectedPlatform,
+        search: searchInputText,
       },
     }
   );

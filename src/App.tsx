@@ -8,6 +8,7 @@ import PlatformSelector from "./components/PlatformSelector";
 export default function App() {
   const [selectedGenre, setSelectedGenre] = useState<number | null>(null);
   const [selectedPlatform, setSelectedPlatform] = useState<number | null>(null);
+  const [searchText, setSearchText] = useState<string | null>(null);
 
   function handleSelectGenre(genreId: number) {
     console.log(`${genreId} selected!`);
@@ -17,6 +18,10 @@ export default function App() {
   function handlePlatformChange(platformid: number | null) {
     console.log(`${platformid} selected!`);
     setSelectedPlatform(platformid);
+  }
+
+  function handleSearchInput(searchText: string | null) {
+    setSearchText(searchText);
   }
 
   return (
@@ -37,7 +42,7 @@ export default function App() {
         zIndex={200}
         background={"Background"}
       >
-        <NavBar />
+        <NavBar onSearchInput={handleSearchInput} />
       </GridItem>
       <Show above="md">
         <GridItem
@@ -64,6 +69,7 @@ export default function App() {
         <GameGrid
           selectedGenre={selectedGenre}
           selectedPlatform={selectedPlatform}
+          searchInputText={searchText}
         />
       </GridItem>
     </Grid>

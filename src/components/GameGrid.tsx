@@ -7,10 +7,15 @@ import GameCardContainer from "./GameCardContainer";
 interface Props {
   selectedGenre: number | null;
   selectedPlatform: number | null;
+  searchInputText: string | null;
 }
 
 export default function GameGrid(props: Props) {
-  const gameHookObj = useGame(props.selectedGenre, props.selectedPlatform);
+  const gameHookObj = useGame(
+    props.selectedGenre,
+    props.selectedPlatform,
+    props.searchInputText
+  );
   const { games } = gameHookObj;
   const { gameError } = gameHookObj;
   const { gameIsLoading } = gameHookObj;

@@ -5,6 +5,7 @@ import {
   MenuList,
   MenuItem,
   Box,
+  Show,
 } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 
@@ -26,7 +27,7 @@ export default function SortSelector(props: Props) {
     <Box display={"inline-flex"}>
       <Menu>
         <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-          Order by :{" "}
+          <Show above="md">Order by : </Show>
           {sortOrders.find((order) => order.value === props.currentOrder)
             ?.label ?? "Relevence"}
         </MenuButton>

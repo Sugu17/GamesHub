@@ -1,5 +1,6 @@
+import { useQuery } from "@tanstack/react-query";
 import { GameQuery } from "../App";
-import useData from "./useData";
+import apiClient from "../services/api-client";
 
 export interface Platform {
   id: number;
@@ -17,7 +18,7 @@ export interface Game {
   rating_top: number;
 }
 
-interface GameHook {
+interface GameResponse {
   games: Game[];
   setGames?: () => void;
   gameError: string;
@@ -25,19 +26,32 @@ interface GameHook {
   gameIsLoading: boolean;
 }
 
+interface DataResponse<T> {
+  count: number;
+  results: T[];
+}
+
 export default function useGame(gameQuery: GameQuery) {
-  const dataHookObj = useData<Game>("/games", gameQuery, {
-    params: {
-      genres: gameQuery.genre,
-      platforms: gameQuery.platform,
-      search: gameQuery.searchText,
-      ordering: gameQuery.sortOrder,
-    },
+  const dataQuery = useQuery({
+    queryFn: () =>
+      apiClient
+        .get<DataResponse<Game>>("/games", {
+          params: {
+            genres: gameQuery.genre,
+            platforms: gameQuery.platform,
+            search: gameQuery.searchText,
+            ordering: gameQuery.sortOrder,
+          },
+        })
+        .then((response) => response.data),
+    queryKey: ["games"],
+    staleTime: 60 * 1000,
   });
-  const response: GameHook = {
-    games: dataHookObj.data,
-    gameError: dataHookObj.error,
-    gameIsLoading: dataHookObj.isLoading,
+
+  const response: GameResponse = {
+    games: dataQuery.data?.results ?? [],
+    gameError: dataQuery.error as string,
+    gameIsLoading: dataQuery.isLoading,
   };
   return response;
 }

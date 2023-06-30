@@ -11,6 +11,8 @@ import {
 import useGenre, { Genre } from "../hooks/useGenres";
 import getCroppedImageURL from "../services/image-url";
 import GenreSkeleton from "./GenreSkeleton";
+import { useQuery } from "@tanstack/react-query";
+import genres from "../data/genres";
 
 interface Props {
   onSelectGenre: (genre: Genre) => void;
@@ -18,12 +20,28 @@ interface Props {
 }
 
 export default function GenreList(props: Props) {
-  const genreHookObj = useGenre();
-  const { genres, genreIsLoading, genreError } = genreHookObj;
-  if (genreError) console.log("Error in fetching genres!!!");
+  // const genreHookObj = useGenre();
+  // const { genres, genreIsLoading, genreError } = genreHookObj;
+  const genreQuery = useQuery({
+    queryFn: (): Promise<Genre[]> =>
+      new Promise((resolve) => {
+        resolve(
+          genres.map((data) => ({
+            id: data.id,
+            name: data.name,
+            slug: data.slug,
+            image_background: data.image_background,
+          }))
+        );
+      }),
+    queryKey: ["genres"],
+    staleTime: 24 * 60 * 60 * 1000,
+  });
+
+  if (genreQuery.error) console.log("Error in fetching genres!!!");
   return (
     <Box>
-      {genreIsLoading && <GenreSkeleton />}
+      {genreQuery.isLoading && <GenreSkeleton />}
       <Heading fontSize={"2xl"} marginBottom={2}>
         Genres
       </Heading>
@@ -34,7 +52,7 @@ export default function GenreList(props: Props) {
         overflowY={"scroll"}
         height={"100vh"}
       >
-        {genres.map((genre) => (
+        {genreQuery.data?.map((genre) => (
           <ListItem key={genre.id} paddingY={3}>
             <HStack spacing={2}>
               <Image

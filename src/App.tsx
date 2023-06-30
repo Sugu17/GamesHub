@@ -103,7 +103,7 @@ export default function App() {
           />
           <HStack
             spacing={{ base: 0, sm: 8 }}
-            justify={"space-between"}
+            justify={{ base: "space-between", md: "end" }}
             width={"100%"}
           >
             <PlatformSelector

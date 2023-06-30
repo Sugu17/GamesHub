@@ -3,11 +3,6 @@ import apiClient from "../services/api-client";
 import { AxiosRequestConfig, CanceledError } from "axios";
 import { GameQuery } from "../App";
 
-interface DataResponse<T> {
-  count: number;
-  results: T[];
-}
-
 export default function useData<T>(
   dataEndpoint: string,
   deps?: GameQuery,

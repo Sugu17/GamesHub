@@ -21,7 +21,7 @@ export interface Game {
 interface GameResponse {
   games: Game[];
   setGames?: () => void;
-  gameError: string;
+  gameError: Error;
   setGameError?: () => void;
   gameIsLoading: boolean;
 }
@@ -37,20 +37,21 @@ export default function useGame(gameQuery: GameQuery) {
       apiClient
         .get<DataResponse<Game>>("/games", {
           params: {
-            genres: gameQuery.genre,
-            platforms: gameQuery.platform,
+            genres: gameQuery.genre?.id,
+            parent_platforms: gameQuery.platform?.id,
             search: gameQuery.searchText,
             ordering: gameQuery.sortOrder,
           },
         })
-        .then((response) => response.data),
-    queryKey: ["games"],
+        .then((response) => response.data)
+        .catch((error) => error),
+    queryKey: ["games", gameQuery],
     staleTime: 60 * 1000,
   });
 
   const response: GameResponse = {
     games: dataQuery.data?.results ?? [],
-    gameError: dataQuery.error as string,
+    gameError: (dataQuery.error as Error) ?? "",
     gameIsLoading: dataQuery.isLoading,
   };
   return response;

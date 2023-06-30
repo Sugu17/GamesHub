@@ -89,9 +89,9 @@ export default function App() {
           align={"center"}
           justify={"space-between"}
           width={"100%"}
-          paddingY={{ base: 0, md: 4 }}
+          paddingTop={{ base: 4 }}
           marginBottom={{ base: 0, md: 6 }}
-          paddingBottom={{ base: 8, md: 0 }}
+          paddingBottom={{ base: 8, md: 8 }}
           position={"sticky"}
           top={{ base: "28", md: 14 }}
           background={colorMode.colorMode === "light" ? "#fff" : "gray.900"}

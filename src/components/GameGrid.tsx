@@ -24,7 +24,7 @@ export default function GameGrid(props: Props) {
 
   return (
     <Box>
-      {gameError && <Text>{gameError}</Text>}
+      {gameError.message && <Text>{gameError.message}</Text>}
 
       <SimpleGrid columns={{ sm: 1, lg: 3 }} spacing={"10"}>
         {gameIsLoading &&

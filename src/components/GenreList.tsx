@@ -5,6 +5,7 @@ import {
   Image,
   Button,
   Heading,
+  Box,
 } from "@chakra-ui/react";
 
 import useGenre, { Genre } from "../hooks/useGenres";
@@ -21,12 +22,18 @@ export default function GenreList(props: Props) {
   const { genres, genreIsLoading, genreError } = genreHookObj;
   if (genreError) console.log("Error in fetching genres!!!");
   return (
-    <>
+    <Box>
       {genreIsLoading && <GenreSkeleton />}
       <Heading fontSize={"2xl"} marginBottom={2}>
         Genres
       </Heading>
-      <List listStyleType={"none"}>
+      <List
+        listStyleType={"none"}
+        display={"flex"}
+        flexDirection={"column"}
+        overflowY={"scroll"}
+        height={"100vh"}
+      >
         {genres.map((genre) => (
           <ListItem key={genre.id} paddingY={3}>
             <HStack spacing={2}>
@@ -55,6 +62,6 @@ export default function GenreList(props: Props) {
           </ListItem>
         ))}
       </List>
-    </>
+    </Box>
   );
 }

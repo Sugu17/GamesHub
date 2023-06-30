@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Grid, GridItem, HStack, Show, Stack } from "@chakra-ui/react";
+import {
+  Grid,
+  GridItem,
+  HStack,
+  Show,
+  Stack,
+  useColorMode,
+} from "@chakra-ui/react";
+
 import { Platform } from "./hooks/useGames";
 import { Genre } from "./hooks/useGenres";
 import GameHeading from "./components/GameHeading";
@@ -8,6 +16,8 @@ import GameGrid from "./components/GameGrid";
 import GenreList from "./components/GenreList";
 import PlatformSelector from "./components/PlatformSelector";
 import SortSelector from "./components/SortSelector";
+
+import "./App.css";
 
 export interface GameQuery {
   genre: Genre | null;
@@ -35,6 +45,8 @@ export default function App() {
     setGameQuery({ ...gameQuery, sortOrder });
   }
 
+  const colorMode = useColorMode();
+
   return (
     <Grid
       templateAreas={{
@@ -43,15 +55,16 @@ export default function App() {
       }}
       templateColumns={{
         base: "1fr",
-        md: "200px 1fr",
+        md: "225px 1fr",
       }}
     >
       <GridItem
         area={"nav"}
         position={"fixed"}
-        w={"100%"}
+        top={0}
         zIndex={200}
-        background={"Background"}
+        width={"100%"}
+        background={colorMode.colorMode === "light" ? "#fff" : "gray.900"}
       >
         <NavBar onSearchInput={handleSearchInput} />
       </GridItem>
@@ -59,12 +72,9 @@ export default function App() {
         <GridItem
           area={"aside"}
           paddingX={4}
-          height={"99vh"}
-          overflowY={"scroll"}
-          overscrollBehaviorY={"contain"}
-          position={"sticky"}
-          top={16}
-          mt={16}
+          position={"fixed"}
+          top={20}
+          width={"225px"}
         >
           <GenreList
             onSelectGenre={handleSelectGenre}
@@ -72,24 +82,30 @@ export default function App() {
           />
         </GridItem>
       </Show>
-      <GridItem
-        area={"main"}
-        paddingY={3}
-        paddingX={4}
-        mt={{ base: "28", md: 16 }}
-        overflow={"hidden"}
-      >
+      <GridItem area={"main"} marginY={{ base: "28", md: 20 }} paddingX={4}>
         <Stack
-          paddingBottom={8}
           direction={{ base: "column", sm: "row" }}
           spacing={{ base: 4, sm: 8 }}
-          justify={{ base: "space-between" }}
+          align={"center"}
+          justify={"space-between"}
+          width={"100%"}
+          paddingY={{ base: 0, md: 4 }}
+          marginBottom={{ base: 0, md: 6 }}
+          paddingBottom={{ base: 8, md: 0 }}
+          position={"sticky"}
+          top={{ base: "28", md: 14 }}
+          background={colorMode.colorMode === "light" ? "#fff" : "gray.900"}
+          zIndex={200}
         >
           <GameHeading
             platformQuery={gameQuery.platform?.name}
             genreQuery={gameQuery.genre?.name}
           />
-          <HStack spacing={{ base: 0, sm: 8 }} justify={"space-between"}>
+          <HStack
+            spacing={{ base: 0, sm: 8 }}
+            justify={"space-between"}
+            width={"100%"}
+          >
             <PlatformSelector
               onSelectedPlatform={handlePlatformChange}
               selectedPlatform={gameQuery.platform}

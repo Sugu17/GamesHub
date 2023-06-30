@@ -7,7 +7,7 @@ interface Props {
 
 export default function GameHeading(props: Props) {
   return (
-    <Heading as={"h1"} display={"inline-flex"}>
+    <Heading as={"h1"} display={"inline-flex"} whiteSpace={"nowrap"}>
       {`${props.genreQuery ?? ""} ${props.platformQuery ?? ""} Games`}
     </Heading>
   );

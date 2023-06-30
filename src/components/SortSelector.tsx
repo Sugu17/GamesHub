@@ -27,7 +27,7 @@ export default function SortSelector(props: Props) {
     <Box display={"inline-flex"}>
       <Menu>
         <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-          <Show above="md">Order by : </Show>
+          <Show above="lg">Order by : </Show>
           {sortOrders.find((order) => order.value === props.currentOrder)
             ?.label ?? "Relevence"}
         </MenuButton>

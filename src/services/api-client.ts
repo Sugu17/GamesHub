@@ -1,5 +1,10 @@
 import axios, { CreateAxiosDefaults } from "axios";
 
+export interface DataResponse<T> {
+  count: number;
+  results: T[];
+}
+
 const axiosConfig: CreateAxiosDefaults = {
   baseURL: "https://api.rawg.io/api",
   params: {

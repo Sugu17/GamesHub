@@ -1,12 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { GameQuery } from "../App";
-import apiClient from "../services/api-client";
-
-export interface Platform {
-  id: number;
-  name: string;
-  slug: string;
-}
+import apiClient, { DataResponse } from "../services/api-client";
+import { Platform } from "./usePlatforms";
 
 export interface Game {
   id: number;
@@ -24,11 +19,6 @@ interface GameResponse {
   gameError: Error;
   setGameError?: () => void;
   gameIsLoading: boolean;
-}
-
-interface DataResponse<T> {
-  count: number;
-  results: T[];
 }
 
 export default function useGame(gameQuery: GameQuery) {

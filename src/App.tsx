@@ -15,8 +15,6 @@ import GameGrid from "./components/GameGrid";
 import GenreList from "./components/GenreList";
 import PlatformSelector from "./components/PlatformSelector";
 import SortSelector from "./components/SortSelector";
-
-import "./App.css";
 import { Platform } from "./hooks/usePlatforms";
 
 export interface GameQuery {
@@ -45,7 +43,11 @@ export default function App() {
     setGameQuery({ ...gameQuery, sortOrder });
   }
 
-  const colorMode = useColorMode();
+  const colorMode = useColorMode().colorMode;
+  const stickyElementBackground = {
+    light: "#fff",
+    dark: "gray.900",
+  };
 
   return (
     <Grid
@@ -64,7 +66,7 @@ export default function App() {
         top={0}
         zIndex={200}
         width={"100%"}
-        background={colorMode.colorMode === "light" ? "#fff" : "gray.900"}
+        background={stickyElementBackground[colorMode]}
       >
         <NavBar onSearchInput={handleSearchInput} />
       </GridItem>
@@ -94,7 +96,7 @@ export default function App() {
           paddingBottom={{ base: 8, md: 8 }}
           position={"sticky"}
           top={{ base: "28", md: 14 }}
-          background={colorMode.colorMode === "light" ? "#fff" : "gray.900"}
+          background={stickyElementBackground[colorMode]}
           zIndex={200}
         >
           <GameHeading

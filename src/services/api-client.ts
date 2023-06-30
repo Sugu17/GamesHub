@@ -1,4 +1,4 @@
-import axios, { CreateAxiosDefaults } from "axios";
+import axios, { AxiosRequestConfig, CreateAxiosDefaults } from "axios";
 
 export interface DataResponse<T> {
   count: number;
@@ -12,5 +12,17 @@ const axiosConfig: CreateAxiosDefaults = {
   },
 };
 
-const apiClient = axios.create(axiosConfig);
-export default apiClient;
+export default class APIClient<ResponseType> {
+  apiClient = axios.create(axiosConfig);
+  endpoint: string;
+
+  constructor(endpoint: string) {
+    this.endpoint = endpoint;
+  }
+
+  getAll = (queryData?: AxiosRequestConfig) => {
+    return this.apiClient
+      .get<DataResponse<ResponseType>>(this.endpoint, queryData)
+      .then((response) => response.data);
+  };
+}

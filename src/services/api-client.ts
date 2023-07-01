@@ -3,6 +3,8 @@ import axios, { AxiosRequestConfig, CreateAxiosDefaults } from "axios";
 export interface DataResponse<T> {
   count: number;
   results: T[];
+  next: string | null;
+  prev: string | null;
 }
 
 const axiosConfig: CreateAxiosDefaults = {

@@ -42,7 +42,7 @@ export default function useGame(gameQuery: GameQuery) {
       return lastPage ? allPages.length + 1 : undefined;
     },
     queryKey: ["games", gameQuery],
-    staleTime: 60 * 1000,
+    staleTime: 60 * 60 * 1000,
   });
 
   const response: GameData = {

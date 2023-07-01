@@ -18,11 +18,11 @@ import SortSelector from "./components/SortSelector";
 import { Platform } from "./hooks/usePlatforms";
 
 export interface GameQuery {
-  genre?: { id: number; name: string } | null;
-  platform?: { id: number; name: string } | null;
-  searchText?: string | null;
-  sortOrder?: string | null;
-  pageParam?: number | null;
+  genre?: { id: number; name: string };
+  platform?: { id: number; name: string };
+  searchText?: string;
+  sortOrder?: string;
+  pageParam?: number;
 }
 
 export default function App() {
@@ -42,7 +42,7 @@ export default function App() {
     });
   }
 
-  function handleSearchInput(searchText: string | null) {
+  function handleSearchInput(searchText: string) {
     setGameQuery({ ...gameQuery, searchText });
   }
 

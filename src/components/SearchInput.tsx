@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { BsSearch } from "react-icons/bs";
 
 interface Props {
-  onSearchInput: (searchText: string | null) => void;
+  onSearchInput: (searchText: string) => void;
 }
 
 export default function SearchInput(props: Props) {

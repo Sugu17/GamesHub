@@ -11,8 +11,8 @@ import { BsChevronDown } from "react-icons/bs";
 import usePlatforms, { Platform } from "../hooks/usePlatforms";
 
 interface Props {
-  onSelectedPlatform: (platformId: Platform | null) => void;
-  selectedPlatform: { id: number; name: string } | null;
+  onSelectedPlatform: (platformId: Platform) => void;
+  selectedPlatform?: { id: number; name: string };
 }
 
 export default function PlatformSelector(props: Props) {

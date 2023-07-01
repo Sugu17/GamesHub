@@ -4,7 +4,7 @@ import { FaGamepad } from "react-icons/fa";
 import SearchInput from "./SearchInput";
 
 interface Props {
-  onSearchInput: (searchText: string | null) => void;
+  onSearchInput: (searchText: string) => void;
 }
 
 export default function NavBar(props: Props) {

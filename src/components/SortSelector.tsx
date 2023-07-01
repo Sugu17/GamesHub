@@ -11,7 +11,7 @@ import { BsChevronDown } from "react-icons/bs";
 
 interface Props {
   onSelectSortOrder: (sortOrder: string) => void;
-  currentOrder: string | null;
+  currentOrder?: string;
 }
 
 export default function SortSelector(props: Props) {

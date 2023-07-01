@@ -1,18 +1,18 @@
 import {
-  ListItem,
-  List,
-  HStack,
-  Image,
-  Button,
-  Heading,
   Box,
+  Button,
+  HStack,
+  Heading,
+  Image,
+  List,
+  ListItem,
 } from "@chakra-ui/react";
 
-import useGenre, { Genre } from "../hooks/useGenres";
-import getCroppedImageURL from "../services/image-url";
-import GenreSkeleton from "./GenreSkeleton";
 import { useQuery } from "@tanstack/react-query";
 import genres from "../data/genres";
+import { Genre } from "../hooks/useGenres";
+import getCroppedImageURL from "../services/image-url";
+import GenreSkeleton from "./GenreSkeleton";
 
 interface Props {
   onSelectGenre: (genre: Genre) => void;

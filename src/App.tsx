@@ -18,22 +18,28 @@ import SortSelector from "./components/SortSelector";
 import { Platform } from "./hooks/usePlatforms";
 
 export interface GameQuery {
-  genre: Genre | null;
-  platform: Platform | null;
-  searchText: string | null;
-  sortOrder: string | null;
-  pageParam: number | null;
+  genre?: { id: number; name: string } | null;
+  platform?: { id: number; name: string } | null;
+  searchText?: string | null;
+  sortOrder?: string | null;
+  pageParam?: number | null;
 }
 
 export default function App() {
   const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
 
   function handleSelectGenre(genre: Genre) {
-    setGameQuery({ ...gameQuery, genre });
+    setGameQuery({
+      ...gameQuery,
+      genre: { id: genre.id, name: genre.name },
+    });
   }
 
-  function handlePlatformChange(platform: Platform | null) {
-    setGameQuery({ ...gameQuery, platform });
+  function handlePlatformChange(platform: Platform) {
+    setGameQuery({
+      ...gameQuery,
+      platform: { id: platform.id, name: platform.name },
+    });
   }
 
   function handleSearchInput(searchText: string | null) {

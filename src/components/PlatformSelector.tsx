@@ -12,7 +12,7 @@ import usePlatforms, { Platform } from "../hooks/usePlatforms";
 
 interface Props {
   onSelectedPlatform: (platformId: Platform | null) => void;
-  selectedPlatform: Platform | null;
+  selectedPlatform: { id: number; name: string } | null;
 }
 
 export default function PlatformSelector(props: Props) {

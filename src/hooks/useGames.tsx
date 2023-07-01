@@ -27,6 +27,12 @@ interface GameData {
 }
 
 export default function useGame(gameQuery: GameQuery) {
+  const gameKey = {
+    genres: gameQuery.genre?.id,
+    platforms: gameQuery.platform?.id,
+    search: gameQuery.searchText,
+    ordering: gameQuery.sortOrder,
+  };
   const dataQuery = useInfiniteQuery({
     queryFn: ({ pageParam = 1 }) =>
       apiClient.getAll({
@@ -41,7 +47,7 @@ export default function useGame(gameQuery: GameQuery) {
     getNextPageParam: (lastPage, allPages) => {
       return lastPage ? allPages.length + 1 : undefined;
     },
-    queryKey: ["games", gameQuery],
+    queryKey: ["games", gameKey],
     staleTime: 60 * 60 * 1000,
   });
 

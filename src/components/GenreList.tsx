@@ -16,7 +16,7 @@ import GenreSkeleton from "./GenreSkeleton";
 
 interface Props {
   onSelectGenre: (genre: Genre) => void;
-  selectedGenre: Genre | null;
+  selectedGenre: { id: number; name: string } | null;
 }
 
 export default function GenreList(props: Props) {

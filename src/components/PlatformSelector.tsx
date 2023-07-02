@@ -13,13 +13,16 @@ import useGameQueryStore from "../hooks/useStore";
 
 export default function PlatformSelector() {
   const { platforms, platformError } = usePlatforms();
-  const { gameQuery, setPlatform } = useGameQueryStore();
+  const [selectedPlatform, setPlatform] = useGameQueryStore((select) => [
+    select.gameQuery.platform,
+    select.setPlatform,
+  ]);
   if (platformError) return null;
   return (
     <Box display={"inline-flex"}>
       <Menu>
         <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-          {gameQuery.platform?.name || "Platforms"}
+          {selectedPlatform?.name || "Platforms"}
         </MenuButton>
         <MenuList>
           {platforms.map((platform) => (

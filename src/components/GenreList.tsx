@@ -15,7 +15,8 @@ import useGameQueryStore from "../hooks/useStore";
 
 export default function GenreList() {
   const genreQuery = useGenre();
-  const { setGenre, gameQuery } = useGameQueryStore();
+  const setGenre = useGameQueryStore((select) => select.setGenre);
+  const selectedGenre = useGameQueryStore((select) => select.gameQuery.genre);
 
   if (genreQuery.error) console.log("Error in fetching genres!!!");
   return (
@@ -42,11 +43,9 @@ export default function GenreList() {
               />
               <Button
                 onClick={() => setGenre({ id: genre.id, name: genre.name })}
-                variant={gameQuery.genre?.id === genre.id ? "solid" : "ghost"}
+                variant={selectedGenre?.id === genre.id ? "solid" : "ghost"}
                 fontSize={"lg"}
-                fontWeight={
-                  gameQuery.genre?.id === genre.id ? "bold" : "normal"
-                }
+                fontWeight={selectedGenre?.id === genre.id ? "bold" : "normal"}
                 paddingX={2}
               >
                 {genre.name.length > 10

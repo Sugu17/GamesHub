@@ -4,7 +4,7 @@ import { BsSearch } from "react-icons/bs";
 import useGameQueryStore from "../hooks/useStore";
 
 export default function SearchInput() {
-  const { setSearchText } = useGameQueryStore();
+  const setSearchText = useGameQueryStore((s) => s.setSearchText);
 
   const searchButtonRef = useRef<HTMLInputElement>(null);
   const formStyle = {

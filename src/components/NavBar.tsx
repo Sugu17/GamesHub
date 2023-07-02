@@ -3,11 +3,7 @@ import ColorModeSwitch from "./ColorModeSwitch";
 import { FaGamepad } from "react-icons/fa";
 import SearchInput from "./SearchInput";
 
-interface Props {
-  onSearchInput: (searchText: string) => void;
-}
-
-export default function NavBar(props: Props) {
+export default function NavBar() {
   return (
     <Stack
       paddingX={4}
@@ -21,7 +17,7 @@ export default function NavBar(props: Props) {
           <ColorModeSwitch />
         </Show>
       </HStack>
-      <SearchInput onSearchInput={props.onSearchInput} />
+      <SearchInput />
       <Show above="md">
         <ColorModeSwitch />
       </Show>

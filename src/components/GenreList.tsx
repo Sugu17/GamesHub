@@ -8,35 +8,14 @@ import {
   ListItem,
 } from "@chakra-ui/react";
 
-import { useQuery } from "@tanstack/react-query";
-import genres from "../data/genres";
-import { Genre } from "../hooks/useGenres";
 import getCroppedImageURL from "../services/image-url";
 import GenreSkeleton from "./GenreSkeleton";
+import useGenre from "../hooks/useGenres";
+import useGameQueryStore from "../hooks/useStore";
 
-interface Props {
-  onSelectGenre: (genre: Genre) => void;
-  selectedGenre?: { id: number; name: string };
-}
-
-export default function GenreList(props: Props) {
-  // const genreHookObj = useGenre();
-  // const { genres, genreIsLoading, genreError } = genreHookObj;
-  const genreQuery = useQuery({
-    queryFn: (): Promise<Genre[]> =>
-      new Promise((resolve) => {
-        resolve(
-          genres.map((data) => ({
-            id: data.id,
-            name: data.name,
-            slug: data.slug,
-            image_background: data.image_background,
-          }))
-        );
-      }),
-    queryKey: ["genres"],
-    staleTime: 24 * 60 * 60 * 1000,
-  });
+export default function GenreList() {
+  const genreQuery = useGenre();
+  const { setGenre, gameQuery } = useGameQueryStore();
 
   if (genreQuery.error) console.log("Error in fetching genres!!!");
   return (
@@ -62,13 +41,11 @@ export default function GenreList(props: Props) {
                 src={getCroppedImageURL(genre.image_background)}
               />
               <Button
-                onClick={() => props.onSelectGenre(genre)}
-                variant={
-                  props.selectedGenre?.id === genre.id ? "solid" : "ghost"
-                }
+                onClick={() => setGenre({ id: genre.id, name: genre.name })}
+                variant={gameQuery.genre?.id === genre.id ? "solid" : "ghost"}
                 fontSize={"lg"}
                 fontWeight={
-                  props.selectedGenre?.id === genre.id ? "bold" : "normal"
+                  gameQuery.genre?.id === genre.id ? "bold" : "normal"
                 }
                 paddingX={2}
               >

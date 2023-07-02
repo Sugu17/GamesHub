@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Grid,
   GridItem,
@@ -8,48 +7,14 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 
-import { Genre } from "./hooks/useGenres";
-import GameHeading from "./components/GameHeading";
-import NavBar from "./components/NavBar";
 import GameGrid from "./components/GameGrid";
+import GameHeading from "./components/GameHeading";
 import GenreList from "./components/GenreList";
+import NavBar from "./components/NavBar";
 import PlatformSelector from "./components/PlatformSelector";
 import SortSelector from "./components/SortSelector";
-import { Platform } from "./hooks/usePlatforms";
-
-export interface GameQuery {
-  genre?: { id: number; name: string };
-  platform?: { id: number; name: string };
-  searchText?: string;
-  sortOrder?: string;
-  pageParam?: number;
-}
 
 export default function App() {
-  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
-
-  function handleSelectGenre(genre: Genre) {
-    setGameQuery({
-      ...gameQuery,
-      genre: { id: genre.id, name: genre.name },
-    });
-  }
-
-  function handlePlatformChange(platform: Platform) {
-    setGameQuery({
-      ...gameQuery,
-      platform: { id: platform.id, name: platform.name },
-    });
-  }
-
-  function handleSearchInput(searchText: string) {
-    setGameQuery({ ...gameQuery, searchText });
-  }
-
-  function handleSortOrderChange(sortOrder: string) {
-    setGameQuery({ ...gameQuery, sortOrder });
-  }
-
   const colorMode = useColorMode().colorMode;
   const stickyElementBackground = {
     light: "#fff",
@@ -75,7 +40,7 @@ export default function App() {
         width={"100%"}
         background={stickyElementBackground[colorMode]}
       >
-        <NavBar onSearchInput={handleSearchInput} />
+        <NavBar />
       </GridItem>
       <Show above="md">
         <GridItem
@@ -85,10 +50,7 @@ export default function App() {
           top={20}
           width={"225px"}
         >
-          <GenreList
-            onSelectGenre={handleSelectGenre}
-            selectedGenre={gameQuery.genre}
-          />
+          <GenreList />
         </GridItem>
       </Show>
       <GridItem area={"main"} marginY={{ base: "28", md: 20 }} paddingX={4}>
@@ -106,26 +68,17 @@ export default function App() {
           background={stickyElementBackground[colorMode]}
           zIndex={200}
         >
-          <GameHeading
-            platformQuery={gameQuery.platform?.name}
-            genreQuery={gameQuery.genre?.name}
-          />
+          <GameHeading />
           <HStack
             spacing={{ base: 0, sm: 8 }}
             justify={{ base: "space-between", md: "end" }}
             width={"100%"}
           >
-            <PlatformSelector
-              onSelectedPlatform={handlePlatformChange}
-              selectedPlatform={gameQuery.platform}
-            />
-            <SortSelector
-              onSelectSortOrder={handleSortOrderChange}
-              currentOrder={gameQuery.sortOrder}
-            />
+            <PlatformSelector />
+            <SortSelector />
           </HStack>
         </Stack>
-        <GameGrid gameQuery={gameQuery} />
+        <GameGrid />
       </GridItem>
     </Grid>
   );

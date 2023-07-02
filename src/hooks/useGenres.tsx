@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import genres from "../data/genres";
 
 export interface Genre {
@@ -7,20 +8,21 @@ export interface Genre {
   image_background: string;
 }
 
-interface GenreHook {
-  genres: Genre[];
-  setGenres?: () => void;
-  genreError: string;
-  setGenreError?: () => void;
-  genreIsLoading: boolean;
-}
-
 export default function useGenre() {
-  // const dataHookObj = useData<Genre>("/genres");
-  const response: GenreHook = {
-    genres: genres,
-    genreError: "",
-    genreIsLoading: false,
-  };
-  return response;
+  const genreQuery = useQuery({
+    queryFn: (): Promise<Genre[]> =>
+      new Promise((resolve) => {
+        resolve(
+          genres.map((data) => ({
+            id: data.id,
+            name: data.name,
+            slug: data.slug,
+            image_background: data.image_background,
+          }))
+        );
+      }),
+    queryKey: ["genres"],
+    staleTime: 24 * 60 * 60 * 1000,
+  });
+  return genreQuery;
 }

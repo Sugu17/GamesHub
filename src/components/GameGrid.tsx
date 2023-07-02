@@ -5,12 +5,10 @@ import useGame from "../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardContainer from "./GameCardContainer";
 import GameCardSkeleton from "./GameCardSkeleton";
-import useGameQueryStore from "../hooks/useStore";
 
 export default function GameGrid() {
-  const gameQuery = useGameQueryStore((select) => select.gameQuery);
   const { pages, gameError, gameIsLoading, hasNextPage, fetchNextPage } =
-    useGame(gameQuery);
+    useGame();
 
   const fetchedGamesCount = pages.reduce(
     (total, page) => (total += page.count),

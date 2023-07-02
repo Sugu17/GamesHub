@@ -2,6 +2,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { GameQuery } from "../App";
 import APIClient, { DataResponse } from "../services/api-client";
 import { Platform } from "./usePlatforms";
+import useGameQueryStore from "./useStore";
 
 const apiClient = new APIClient<Game>("/games");
 
@@ -26,7 +27,8 @@ interface GameData {
   fetchNextPage: () => unknown;
 }
 
-export default function useGame(gameQuery: GameQuery) {
+export default function useGame() {
+  const gameQuery = useGameQueryStore((select) => select.gameQuery);
   const gameKey = {
     genres: gameQuery.genre?.id,
     platforms: gameQuery.platform?.id,
